@@ -7,16 +7,9 @@ const pwa = {
 
 	'init':			function()
 					{
-						pwa.fetch('')
-						.then(function(response)
-						{
-							// search for access
-							if( response.status == 200 )
-							{
-								// open 'begin' dialog
-								pwa.open('begin');
-							}
-						});
+						// open 'begin' dialog
+						pwa.open('begin');
+						}
 					},
 
 	'fetch':		function( url, args )
