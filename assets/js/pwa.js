@@ -7,9 +7,54 @@ const pwa = {
 
 	'init':			function()
 					{
-						// open 'begin' dialog
-						pwa.open('begin');
+						// register serviceworker if possible
+						if( 'serviceWorker' in navigator )
+						{
+							navigator.serviceWorker.register('./sw.js')
+							.catch(function(error)
+							{
+								console.log('sw.js failed with ' + error);
+							});
 						}
+
+						// check for connectivity
+						pwa.conncheck();
+
+						// watch connectivity
+						window.addEventListener('online',	pwa.conncheck);
+						window.addEventListener('offline',	pwa.conncheck);
+
+						// check for proxy
+						if( pwa.dialog != 'offline' )
+							pwa.proxycheck();
+					},
+
+	'conncheck':	function()
+					{
+						if( !navigator.onLine )
+							pwa.open('offline');
+					},
+
+	'proxycheck':	function()
+					{
+						pwa.fetch('')
+						.then(function(response)
+						{
+							// search for access
+							if( response.status == 200 )
+							{
+								// open 'begin' dialog
+								pwa.open('begin');
+							}
+							else
+							{
+								// open proxy dialog
+								pwa.open('proxy');
+
+								// check again in 3 seconds
+								setTimeout(pwa.proxycheck, 3000);
+							}
+						});
 					},
 
 	'fetch':		function( url, args )
