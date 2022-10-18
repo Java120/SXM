@@ -11,7 +11,7 @@
 	"theme_color": "#C40E0E",
 	"orientation": "portrait-primary",
 	"lang": "en-US",
-	"scope": "/SXM/",
+	"scope": "/sxm-activator-pwa/",
 	"start_url": "./index.html",
 	"icons": [
 		{
