@@ -60,7 +60,7 @@ const pwa = {
 	'fetch':		function( url, args )
 					{
 						// wrap all requests through cors-anywhere
-						return fetch('https://proxy.cors.sh/' + url, args);
+						return fetch('https://cors-anywhere.herokuapp.com/' + url, args);
 					},
 
 	'dialog':		'default',
