@@ -23,12 +23,6 @@ const pwa = {
 						// watch connectivity
 						window.addEventListener('online',	pwa.conncheck);
 						window.addEventListener('offline',	pwa.conncheck);
-
-						// check for proxy
-						if( pwa.dialog != 'offline' )
-							pwa.proxycheck();
-					},
-
 	'conncheck':	function()
 					{
 						if( !navigator.onLine )
@@ -46,21 +40,13 @@ const pwa = {
 								// open 'begin' dialog
 								pwa.open('begin');
 							}
-							else
-							{
-								// open proxy dialog
-								pwa.open('proxy');
-
-								// check again in 3 seconds
-								setTimeout(pwa.proxycheck, 3000);
-							}
 						});
 					},
 
 	'fetch':		function( url, args )
 					{
 						// wrap all requests through cors-anywhere
-						return fetch('https://cors-anywhere.herokuapp.com/' + url, args);
+						return fetch('https://proxy.cors.sh/' + url, args);
 					},
 
 	'dialog':		'default',
